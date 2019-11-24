@@ -19,4 +19,5 @@ cursor.execute("SELECT artwork.*, department.name AS department, "
 results = cursor.fetchall()
 
 results = [dict(row) for row in results]
-print(json.dumps(results, sort_keys=True, indent=4))
+with open('../dist/artwork.json', 'w') as output:
+    json.dump(results, output, sort_keys=True, indent=4)
