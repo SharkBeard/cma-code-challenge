@@ -1,22 +1,39 @@
 <template>
   <div class="artwork">
     <el-card body-style="padding: 0; height: 150px">
-      <el-image :lazy="true" :src="img_path" style="min-width:100%; max-height:100px" class="image" fit="cover" />
+      <el-image :lazy="true" :src="img_path" :preview-src-list="[img_path]" style="min-width:100%; height:100px; vertical-align:middle" class="image" fit="cover" />
       <div class="card-details small" @click="opened = true">
-          {{data.title}}
+        <el-row style="max-height: 1.25em; overflow:hidden">
+            <el-col :span="20">
+              {{data.title}}
+            </el-col>
+          <el-col :span="4">
+              <i class="el-icon-more-outline"></i>
+          </el-col>
+        </el-row>
       </div>
     </el-card>
-    <el-drawer :title="data.title" :visible.sync="opened" direction="btt">
+    <el-drawer :title="data.title" :visible.sync="opened" direction="btt" size="50%">
+      <ul class="details">
       <li><i class="el-icon-collection-tag"></i> {{ data.accession_number }}</li>
-      <li><i class="el-icon-brush"></i> {{ data.department }}</li>
-      <li class="small"><i class=""></i> {{ data.tombstone }}</li>
-      <el-divider>
-        <span v-if="data.creator_role != ''" class="creator-role"> {{ data.creator_role }}: </span>
-      </el-divider>
-      <li class="small">
+      <li><i class="el-icon-brush"></i> {{ data.department_name }}</li>
+      <li class="small" v-for="(creator, index) in data.creators" :key="index">
         <i class="el-icon-user"></i>
-        {{ data.creator_description }}
+        <span v-if="creator.role != '' && creator.role != 'NULL'" class="creator-role"> {{ creator.role }}: </span>
+        <span v-if="creator.name != ''">{{ creator.name }}</span>
       </li>
+      </ul>
+      <el-divider> </el-divider>
+      <el-row>
+        <el-col :span="18">
+          <div class="tombstone">
+            <span class="small">{{ data.tombstone }}</span>
+          </div>
+        </el-col>
+        <el-col :span="6" style="padding: 0 20px 20px 0">
+          <el-image :src="img_path" :preview-src-list="[img_path]" class="drawer-image image" fit="cover" />
+        </el-col>
+      </el-row>
     </el-drawer>
   </div>
 </template>
@@ -58,8 +75,20 @@ a {
 }
 .creator-role {
   text-transform: capitalize;
+  font-weight: bold;
 }
 .small {
   font-size: 80%;
 }
+  .tombstone {
+    padding: 0 20px;
+  }
+  .drawer-image {
+    width: 100%;
+    height: 150px;
+  }
+  .details {
+    height: 5em;
+    overflow-y: scroll;
+  }
 </style>
