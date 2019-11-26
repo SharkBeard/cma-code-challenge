@@ -1,7 +1,7 @@
 # cma-code-challenge
 
 ### Root
-The root of this project is just configuration files
+The root of this project is just configuration files (and this readme!)
 
 ### /src
 The `/src` directory contains the code use to build this project
