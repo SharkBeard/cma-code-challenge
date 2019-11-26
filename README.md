@@ -7,7 +7,7 @@ The root of this project is just configuration files (and this readme!)
 The `/src` directory contains the code use to build this project
 
 ### /dist
-The `/dist` directory has the final compiled solution that you can run in your browser without any installation.
+The `/dist` directory has the final compiled solution that you can run in your browser after copying to a web server.
 
 ### /lib
 The `/lib` directory has the files given to start off the challenge.
